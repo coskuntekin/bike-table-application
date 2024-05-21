@@ -13,7 +13,6 @@ export async function observe(
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
-  console.log("response");
 
   return await response.json();
 }
