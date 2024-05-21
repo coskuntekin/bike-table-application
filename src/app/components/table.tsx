@@ -17,11 +17,11 @@ export function BikeTable(props: {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBike, setSelectedBike] = useState<BikeItem | null>(null);
 
-  const array = props.bikeArray;
+  const bikeArray = props.bikeArray;
   const isArray = Array.isArray(props.bikeArray);
 
-  const object = props.bikeObject;
-  const isObject = typeof object === "object" && object !== null && !isArray;
+  const bikeObject = props.bikeObject;
+  const isObject = typeof bikeObject === "object" && bikeObject !== null && !isArray;
 
   const totalPages = Math.ceil(props.totalCount / 8);
 
@@ -66,7 +66,7 @@ export function BikeTable(props: {
         cellSpacing="0"
       >
         <thead>
-          {((isArray && array.length > 0) || isObject) && (
+          {((isArray && bikeArray.length > 0) || isObject) && (
             <tr>
               <th
                 scope="col"
@@ -111,7 +111,7 @@ export function BikeTable(props: {
         {isPending && <Skeleton />}
 
         <tbody aria-label="Bikes table has no data">
-          {!isPending && isArray && array.length === 0 && (
+          {!isPending && bikeObject === null  && (
             <tr>
               <td
                 colSpan={6}
@@ -134,7 +134,7 @@ export function BikeTable(props: {
         <tbody aria-label="Bike table data loop">
           {!isPending &&
             isArray &&
-            array.map((item) => (
+            bikeArray.map((item) => (
               <tr key={item?.bike_id ?? randomNumber}>
                 <td className="h-12 px-6 py-2 text-sm text-center border-t border-slate-200 stroke-slate-500 text-slate-500">
                   {item?.bike_id ?? "N/A"}
@@ -184,21 +184,21 @@ export function BikeTable(props: {
             ))}
 
           {isObject && (
-            <tr key={object?.bike_id}>
+            <tr key={bikeObject?.bike_id}>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {object?.bike_id}
+                {bikeObject?.bike_id}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {object?.vehicle_type}
+                {bikeObject?.vehicle_type}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {object?.is_reserved === 0 ? "Yes" : "No"}
+                {bikeObject?.is_reserved === 0 ? "Yes" : "No"}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {object?.is_disabled === 0 ? "Yes" : "No"}
+                {bikeObject?.is_disabled === 0 ? "Yes" : "No"}
               </td>
               <td className="h-12 px-6 py-2 text-sm text-center border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {object?.total_bookings ?? "N/A"}
+                {bikeObject?.total_bookings ?? "N/A"}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
                 <button
@@ -226,11 +226,11 @@ export function BikeTable(props: {
             </tr>
           )}
         </tbody>
-        {isArray && array.length > 0 && (
+        {isArray && bikeArray.length > 0 && (
           <tfoot aria-label="Bike table pagination">
             <tr>
               <td
-                colSpan={5}
+                colSpan={6}
                 className="px-6 pt-2 pb-6 text-sm font-normal stroke-slate-700 text-slate-400"
               >
                 <nav role="navigation" aria-label="Pagination Navigation">
