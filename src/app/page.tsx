@@ -35,17 +35,18 @@ export default async function Home({
   }, 1000);
 
   return (
-    <main className="flex w-full min-h-screen flex-col p-12 bg-white" role="main">
+    <main
+      className="flex w-full min-h-screen flex-col p-12 bg-white"
+      role="main"
+    >
       <section className="bg-noise bg-opacity-80 backdrop-blur-md w-full h-full rounded-xl p-12 shadow-lg">
-        <Link href={"/?page=1"}>
-          <h1
-            aria-label="Page title"
-            className="text-gray-700 leading-10 text-5xl font-semibold mb-12"
-          >
-            Bike Table
-            <span className="text-gray-400">&nbsp;Application</span>
-          </h1>
-        </Link>
+        <h1
+          aria-label="Page title"
+          className="text-gray-700 leading-10 text-5xl font-semibold mb-12"
+        >
+          Bike Table
+          <span className="text-gray-400">&nbsp;Application</span>
+        </h1>
         <div aria-label="Search form" className="mb-4 flex justify-between">
           <Search
             bikeId={searchParams.bike_id}
