@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Search } from "./components/search";
 import { BikeTable } from "./components/table";
 import { observe } from "./lib/observe";
-import { BikeResponse } from "./types/bike";
+import { BikeItem, BikeResponse } from "./types/bike";
 
 export default async function Home({
   searchParams,
@@ -14,11 +14,8 @@ export default async function Home({
   let response: BikeResponse = await observe(endpoint, searchParams);
   let ttl = response.ttl;
 
-  let bikes = response.data.bikes || response.data.bike;
-
-  if (bikes === null) {
-    bikes = [];
-  }
+  const bikeArray = response.data.bikes as BikeItem[];
+  const bikeObject = response.data.bike as BikeItem
 
   const totaCount = response.total_count;
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
@@ -53,7 +50,12 @@ export default async function Home({
             vehicleType={searchParams.vehicleType}
           />
         </div>
-        <BikeTable currentPage={page} totalCount={totaCount} array={bikes} />
+        <BikeTable
+          currentPage={page}
+          totalCount={totaCount}
+          bikeObject={bikeObject}
+          bikeArray={bikeArray}
+        />
       </section>
     </main>
   );

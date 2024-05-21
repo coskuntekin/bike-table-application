@@ -6,7 +6,8 @@ import Skeleton from "./skeleton";
 import Modal from "./modal";
 
 export function BikeTable(props: {
-  array: BikeItem;
+  bikeArray: BikeItem[];
+  bikeObject: BikeItem;
   totalCount: number;
   currentPage: number;
 }) {
@@ -16,12 +17,11 @@ export function BikeTable(props: {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBike, setSelectedBike] = useState<BikeItem | null>(null);
 
-  const array = props.array;
+  const array = props.bikeArray;
+  const isArray = Array.isArray(props.bikeArray);
 
-  const isArray = Array.isArray(props.array);
-
-  const isObject =
-    typeof props.array === "object" && props.array !== null && !isArray;
+  const object = props.bikeObject;
+  const isObject = typeof object === "object" && object !== null && !isArray;
 
   const totalPages = Math.ceil(props.totalCount / 8);
 
@@ -184,21 +184,21 @@ export function BikeTable(props: {
             ))}
 
           {isObject && (
-            <tr key={array?.bike_id}>
+            <tr key={object?.bike_id}>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {array?.bike_id}
+                {object?.bike_id}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {array?.vehicle_type}
+                {object?.vehicle_type}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {array?.is_reserved === 0 ? "Yes" : "No"}
+                {object?.is_reserved === 0 ? "Yes" : "No"}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {array?.is_disabled === 0 ? "Yes" : "No"}
+                {object?.is_disabled === 0 ? "Yes" : "No"}
               </td>
               <td className="h-12 px-6 py-2 text-sm text-center border-t border-slate-200 stroke-slate-500 text-slate-500">
-                {array?.total_bookings ?? "N/A"}
+                {object?.total_bookings ?? "N/A"}
               </td>
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
                 <button
