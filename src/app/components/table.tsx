@@ -32,7 +32,6 @@ export function BikeTable(props: {
   const randomNumber = Math.floor(Math.random() * 100);
 
   const openModal = (item: BikeItem) => {
-    console.log("Modal is open", item);
     setIsModalVisible(true);
     setSelectedBike(item);
   };
