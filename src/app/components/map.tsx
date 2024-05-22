@@ -7,13 +7,17 @@ const containerStyle = {
 };
 
 export function Map(center: { lat: number; lng: number }) {
-  const apiKey = "AIzaSyAOwF8bTOrRFhuj2vDOUIotvEeUtryuz68";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey,
   });
 
   if (!isLoaded) {
-    return <div className="w-full h-[400px] flex justify-center items-center">Loading...</div>;
+    return (
+      <div className="w-full h-[400px] flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
   return (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={20}>
