@@ -1,5 +1,3 @@
-import { LoadScript } from "@react-google-maps/api";
-import Link from "next/link";
 import { Search } from "./components/search";
 import { BikeTable } from "./components/table";
 import { observe } from "./lib/observe";
@@ -15,7 +13,7 @@ export default async function Home({
   let ttl = response.ttl;
 
   const bikeArray = response.data.bikes as BikeItem[];
-  const bikeObject = response.data.bike as BikeItem
+  const bikeObject = response.data.bike as BikeItem;
 
   const totaCount = response.total_count;
   const page = searchParams.page ? parseInt(searchParams.page) : 1;

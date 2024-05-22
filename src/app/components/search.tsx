@@ -9,7 +9,6 @@ export function Search(props: { bikeId?: string; vehicleType?: string }) {
 
   const [bikeId, setBikeId] = useState(props.bikeId);
   const [vehicleType, setVehicleType] = useState(props.vehicleType);
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const [isPending, startTransition] = useTransition();
@@ -31,8 +30,6 @@ export function Search(props: { bikeId?: string; vehicleType?: string }) {
         params.delete("vehicle_type");
       }
     }
-
-    params.set("page", currentPage.toString());
 
     startTransition(() => {
       router.replace(`/?${params.toString()}`);
@@ -81,9 +78,7 @@ export function Search(props: { bikeId?: string; vehicleType?: string }) {
           }}
           className="peer relative h-10 w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-500 outline-none transition-all focus:border-gray-400 focus-visible:outline-none focus:focus-visible:outline-none"
         >
-          <option value="">
-            Choose vehicle type
-          </option>
+          <option value="">Choose vehicle type</option>
           <option value="scooter">Scooter</option>
           <option value="bike">Bike</option>
         </select>
@@ -104,6 +99,7 @@ export function Search(props: { bikeId?: string; vehicleType?: string }) {
       <div className="flex gap-x-2">
         <button
           type="button"
+          disabled={isPending}
           onClick={() => {
             setBikeId("");
             setVehicleType("");
@@ -111,20 +107,44 @@ export function Search(props: { bikeId?: string; vehicleType?: string }) {
           }}
           className="h-10 px-4 flex gap-x-2 items-center text-sm font-normal text-gray-600 bg-white rounded-lg hover:bg-gray-300 focus:bg-gray-300 focus:outline-none transition-colors"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z"
-            />
-          </svg>
+          {isPending && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="animate-spin h-5 w-5 text-gray-500"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
+            </svg>
+          )}
+          {!isPending && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z"
+              />
+            </svg>
+          )}
           Reset
         </button>
       </div>

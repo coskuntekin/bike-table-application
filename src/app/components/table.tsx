@@ -11,7 +11,9 @@ export function BikeTable(props: {
   totalCount: number;
   currentPage: number;
 }) {
-  const [currentPage, setCurrentPage] = useState<number>(props.currentPage);
+  const [currentPage, setCurrentPage] = useState<number>(
+    props.currentPage || 1
+  );
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,7 +23,8 @@ export function BikeTable(props: {
   const isArray = Array.isArray(props.bikeArray);
 
   const bikeObject = props.bikeObject;
-  const isObject = typeof bikeObject === "object" && bikeObject !== null && !isArray;
+  const isObject =
+    typeof bikeObject === "object" && bikeObject !== null && !isArray;
 
   const totalPages = Math.ceil(props.totalCount / 8);
 
@@ -42,10 +45,6 @@ export function BikeTable(props: {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const vehicleType = params.get("vehicle_type");
-    const bikeId = params.get("bike_id");
-    if (vehicleType || bikeId) {
-    }
     if (props.currentPage === undefined) {
       params.delete("page");
     } else {
@@ -54,7 +53,7 @@ export function BikeTable(props: {
     startTransition(() => {
       router.replace(`/?${params.toString()}`);
     });
-  }, [router, currentPage, props.currentPage]);
+  }, [router, currentPage, props.currentPage, startTransition]);
 
   return (
     <div
@@ -111,7 +110,7 @@ export function BikeTable(props: {
         {isPending && <Skeleton />}
 
         <tbody aria-label="Bikes table has no data">
-          {!isPending && bikeObject === null  && (
+          {!isPending && bikeObject === null && (
             <tr>
               <td
                 colSpan={6}
@@ -238,7 +237,6 @@ export function BikeTable(props: {
                     <li>
                       <button
                         type="button"
-                        aria-label="Goto Page 1"
                         disabled={currentPage === 1 || isPending}
                         onClick={() => onPageChange(currentPage - 1)}
                         className="inline-flex h-10 items-center disabled:text-gray-300 justify-center gap-4 rounded stroke-slate-700 px-4 text-sm font-medium text-gray-700 transition duration-300 hover:text-gray-500 focus-visible:outline-none"
@@ -280,10 +278,7 @@ export function BikeTable(props: {
                           stroke="currentColor"
                           strokeWidth="1.5"
                           role="graphics-symbol"
-                          aria-labelledby="title-10 desc-10"
                         >
-                          <title id="title-10">Next page</title>
-                          <desc id="desc-10">link to next page</desc>
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
