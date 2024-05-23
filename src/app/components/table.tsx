@@ -202,6 +202,7 @@ export function BikeTable(props: {
               <td className="h-12 px-6 py-2 text-sm transition duration-300 border-t border-slate-200 stroke-slate-500 text-slate-500">
                 <button
                   type="button"
+                  onClick={() => openModal(bikeObject)}
                   aria-label="Detail of bike row"
                   className="flex items-center gap-x-2 border rounded-md py-1.5 px-4 hover:border-gray-400 transition-colors hover:text-gray-700"
                 >
@@ -216,10 +217,15 @@ export function BikeTable(props: {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                     />
                   </svg>
-                  Detail
+                  Location
                 </button>
               </td>
             </tr>
